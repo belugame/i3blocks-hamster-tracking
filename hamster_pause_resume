@@ -1,0 +1,18 @@
+#!/bin/bash
+
+start_date=$(date --date='4 days ago' +%Y-%m-%d)
+start_date="$start_date 00:00:00"
+end_date=$(date "+%Y-%m-%d %H:%M:%S")
+
+output=$(hamster-cli list "$start_date-$end_date"| tac | head -n 1)
+task=$(echo $output | cut -d "|" -f2  | cut -d "@" -f1)
+tag=$(echo $output | cut -d "#" -f2)
+number_of_colons=$(echo $output | cut -d "(" -f1 | grep -n -o ":" | uniq -c | cut -c 7)
+
+if [ "$number_of_colons" == "1" ]; then
+    hamster-cli stop
+else
+    hamster-cli start "$task@Unsorted, #$tag"
+fi
+    
+pkill -RTMIN+2 i3blocks

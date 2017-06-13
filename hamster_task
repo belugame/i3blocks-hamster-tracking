@@ -1,0 +1,14 @@
+#!/bin/bash
+
+output=$(hamster-cli list | tac | head -n 1)
+task=$(echo $output | cut -d "(" -f2- |cut -d "@" -f1 | sed "s/) |//" | sed "s/^\w*//")
+number_of_colons=$(echo $output | cut -d "(" -f1 | grep -n -o ":" | uniq -c | cut -c 7)
+
+if [ "$number_of_colons" == "1" ]; then
+    # 2 colons would indicate that last task has ended and no current task is running
+    echo $task
+    echo blub
+    echo \#00FF00 # color
+else
+    echo Not tracking
+fi
