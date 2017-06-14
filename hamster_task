@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output=$(hamster-cli list | tac | head -n 1)
-task=$(echo $output | cut -d "(" -f2- |cut -d "@" -f1 | sed "s/) |//" | sed "s/^\w*//")
+task=$(echo $output | cut -d "(" -f2- |cut -d "@" -f1 | sed "s/) |//")
 number_of_colons=$(echo $output | cut -d "(" -f1 | grep -n -o ":" | uniq -c | cut -c 7)
 
 if [ "$number_of_colons" == "1" ]; then
