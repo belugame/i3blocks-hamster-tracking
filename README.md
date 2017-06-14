@@ -25,7 +25,7 @@ separator=false
 
 [hamster_task]
 command=/home/user/.i3blocks/hamster_task
-interval=1
+interval=60
 signal=2
 ```
 
